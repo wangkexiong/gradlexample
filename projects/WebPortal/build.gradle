@@ -1,0 +1,3 @@
+apply plugin: 'jetty'
+
+group = 'cn.edu.bupt.wangkexiong'
