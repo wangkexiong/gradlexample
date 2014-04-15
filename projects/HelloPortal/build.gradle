@@ -1,3 +1,4 @@
+// ---------- 1. JAVA Application ----------
 apply plugin: 'java'
 apply plugin: 'application'
 
@@ -24,4 +25,40 @@ jar {
                         'Bundle-DocURL': siteUrl,
                         'Main-Class': mainClassName,
     )
+}
+
+// ---------- 2. Building fat jar ----------
+// ----- 2.1 Using fatjar plugin -----
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2-rc1'
+    }
+}
+apply plugin: 'fatjar'
+
+fatJar {
+    manifest.attributes('Built-By': 'wangkexiong@gmail.com',
+                        'Bundle-Vendor': teamName,
+                        'Bundle-Name': fullName,
+                        'Bundle-Description': fullDescription,
+                        'Bundle-DocURL': siteUrl,
+                        'Main-Class': mainClassName,
+    )
+}
+
+// ----- 2.2 Define own task for packaging
+task fatjar(type: Jar) {
+    baseName = project.name + '-fatjar'
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    with jar
 }
