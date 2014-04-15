@@ -12,4 +12,10 @@ dependencies {
         libraries.'slf4j_log4j12',
         project(':projects:HelloPortal'),
     )
+
+    testCompile (
+        libraries.'servlet',
+        libraries.'spring_test',
+        libraries.'junit',
+    )
 }
