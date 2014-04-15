@@ -1,0 +1,77 @@
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+
+checkstyleMain {
+    configFile = new File("${rootProject.projectDir}/config/checkstyle/sun_checks.xml")
+    showViolations = false
+    ignoreFailures = true
+
+    reports {
+        include ('**/*.java')
+        xml {
+            destination "$buildDir/reports/checkstyle/main.xml"
+        }
+    }
+
+    doLast {
+        tasks.checkstyleReport_main.execute()
+    }
+}
+
+checkstyleTest {
+    configFile = new File("${rootProject.projectDir}/config/checkstyle/sun_checks.xml")
+    showViolations = false
+    ignoreFailures = true
+
+    reports {
+        include ('**/*.java')
+        xml {
+            destination "$buildDir/reports/checkstyle/test.xml"
+        }
+    }
+
+    doLast {
+        tasks.checkstyleReport_test.execute()
+    }
+}
+
+['main', 'test'].each { def checkType ->
+    task("checkstyleReport_${checkType}") << {
+        final source = "$buildDir/reports/checkstyle/${checkType}.xml"
+        final xsl = "${rootProject.projectDir}/config/checkstyle/contrib/checkstyle-simple.xsl"
+        final output = "$buildDir/reports/checkstyle/checkstyle_${checkType}.html"
+
+        if (file("$buildDir/reports/checkstyle/${checkType}.xml").exists()) {
+            ant.xslt(in: source, style: xsl, out: output)
+        }
+    }
+}
+
+pmd {
+    ruleSets = [
+            // The first two better work since it's right in the Javadoc...
+            "basic",
+            "braces",
+            "naming",
+            "clone",
+            "codesize",
+            "controversial",
+            "design",
+            "finalizers",
+            "imports",
+            "j2ee",
+            "javabeans",
+            "junit",
+            "logging-jakarta-commons",
+            "logging-java",
+            "migrating",
+            "optimizations",
+            "strictexception",
+            "strings",
+            "sunsecure",
+            "typeresolution",
+            "unusedcode",
+    ]
+
+    ignoreFailures = true
+}
