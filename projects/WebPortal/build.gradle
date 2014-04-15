@@ -1,3 +1,15 @@
+apply plugin: 'war'
 apply plugin: 'jetty'
 
 group = 'cn.edu.bupt.wangkexiong'
+
+dependencies {
+    providedCompile (libraries.'servlet') {
+        transitive = false
+    }
+
+    compile (
+        libraries.'slf4j_log4j12',
+        project(':projects:HelloPortal'),
+    )
+}

@@ -4,13 +4,15 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-   <!-- General description of your web application -->
-   <display-name>projects\WebPortal - Webapp</display-name>
-      <description>
-         Describe the projects\WebPortal Webapp here.
-         siwang@example.com
+    <display-name>WebPortal</display-name>
+    <servlet>
+        <display-name>HelloServlet</display-name>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>cn.edu.bupt.wangkexiong.HelloServlet</servlet-class>
+    </servlet>
 
-         See http://tomcat.apache.org/tomcat-6.0-doc/appdev/web.xml.txt for more information
-         regarding this Web Descriptor File.
-   </description>
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/submit</url-pattern>
+    </servlet-mapping>
 </web-app>
