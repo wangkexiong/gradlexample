@@ -1,0 +1,7 @@
+ext.versions = [
+    log4j:          '1.2.17',
+]
+
+ext.libraries = [
+    "log4j":            "log4j:log4j:${versions.log4j}",
+]

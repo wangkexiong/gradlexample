@@ -1,5 +1,26 @@
-apply from: 'http://www.tellurianring.com/projects/gradle-plugins/gradle-templates/apply.groovy'
+apply from: 'dependency.gradle'
 
 task wrapper(type:Wrapper){
     gradleVersion= '1.0'
+}
+
+group = 'cn.edu.bupt.wangkexiong'
+
+subprojects {
+    ext {
+        teamName = 'bupt.edu.cn'
+        siteUrl = 'http://wangkexiong.tk'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+configure(subprojects.findAll { !it.name.equalsIgnoreCase('projects') }) {
+    apply plugin: 'java'
+    apply from:   'http://www.tellurianring.com/projects/gradle-plugins/gradle-templates/apply.groovy'
+
+    sourceCompatibility = 1.5
+    targetCompatibility = 1.5
 }

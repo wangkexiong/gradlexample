@@ -1,3 +1,27 @@
 apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'cn.edu.bupt.wangkexiong.Welcome'           // For Gradle 'run' Task
 
 group = 'cn.edu.bupt.wangkexiong'
+
+dependencies {
+    compile (
+        libraries.'log4j',
+    )
+}
+
+ext {
+    fullName = 'HelloWorld'
+    fullDescription = 'Gradle Example'
+}
+
+jar {
+    manifest.attributes('Built-By': 'wangkexiong@gmail.com',
+                        'Bundle-Vendor': teamName,
+                        'Bundle-Name': fullName,
+                        'Bundle-Description': fullDescription,
+                        'Bundle-DocURL': siteUrl,
+                        'Main-Class': mainClassName,
+    )
+}
