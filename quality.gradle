@@ -1,5 +1,10 @@
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+
+test.doLast {
+    tasks.jacocoTestReport.execute()
+}
 
 checkstyleMain {
     configFile = new File("${rootProject.projectDir}/config/checkstyle/sun_checks.xml")

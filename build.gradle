@@ -1,7 +1,7 @@
 apply from: 'dependency.gradle'
 
 task wrapper(type:Wrapper){
-    gradleVersion= '1.0'
+    gradleVersion= '1.6'
 }
 
 group = 'cn.edu.bupt.wangkexiong'
@@ -21,6 +21,7 @@ configure(subprojects.findAll { !it.name.equalsIgnoreCase('projects') }) {
     apply plugin: 'java'
     apply from:   'http://www.tellurianring.com/projects/gradle-plugins/gradle-templates/apply.groovy'
     apply from:   "${rootProject.projectDir}/quality.gradle"
+    apply from:   "${rootProject.projectDir}/sonar.gradle"
 
     sourceCompatibility = 1.5
     targetCompatibility = 1.5
